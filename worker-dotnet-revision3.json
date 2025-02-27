@@ -1,0 +1,117 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:us-east-2:453415725974:task-definition/worker-dotnet:3",
+    "containerDefinitions": [
+        {
+            "name": "dotnet-worker",
+            "image": "453415725974.dkr.ecr.us-east-2.amazonaws.com/dotnet-worker:latest",
+            "cpu": 1024,
+            "memory": 1024,
+            "memoryReservation": 1024,
+            "portMappings": [],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "DD_SERVICE",
+                    "value": "dotnet-worker-ecs"
+                },
+                {
+                    "name": "DD_LOGS_INJECTION",
+                    "value": "true"
+                },
+                {
+                    "name": "DD_ENV",
+                    "value": "carlos-ecs-test"
+                },
+                {
+                    "name": "DD_VERSION",
+                    "value": "1.0"
+                },
+                {
+                    "name": "DD_AGENT_HOST",
+                    "value": "localhost"
+                }
+            ],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "systemControls": []
+        },
+        {
+            "name": "datadog-agent",
+            "image": "public.ecr.aws/datadog/agent:latest",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "containerPort": 8126,
+                    "hostPort": 8126,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "ECS_FARGATE",
+                    "value": "true"
+                },
+                {
+                    "name": "DD_APM_ENABLED",
+                    "value": "true"
+                },
+                {
+                    "name": "DD_API_KEY",
+                    "value": "**"
+                },
+                {
+                    "name": "DD_SITE",
+                    "value": "datadoghq.com"
+                }
+            ],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "systemControls": []
+        }
+    ],
+    "family": "worker-dotnet",
+    "taskRoleArn": "arn:aws:iam::453415725974:role/ecs-get-from-ecr",
+    "executionRoleArn": "arn:aws:iam::453415725974:role/ecs-get-from-ecr",
+    "networkMode": "awsvpc",
+    "revision": 3,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "2048",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "registeredAt": "2025-02-26T18:40:37.395Z",
+    "registeredBy": "arn:aws:iam::453415725974:user/carlos.eduardo@appoena.io",
+    "tags": []
+}
